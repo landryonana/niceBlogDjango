@@ -1,0 +1,111 @@
+<div class="col-lg-4 sidebar ftco-animate">
+  <div class="sidebar-box">
+    <form action="{% url 'blog:post_search' %}" method="get" class="search-form">
+      <div class="form-group">
+        <span class="icon ion-ios-search"></span>
+        {{ form_search.query }}
+      </div>
+    </form>
+  </div>
+  <div class="sidebar-box ftco-animate">
+    <h3 class="heading">Categories</h3>
+    <ul class="categories">
+      <li>
+        <a href="{% url 'blog:post_list' %}">
+          All
+        </a>
+      </li>
+      {% for category in categories %}
+      <li>
+        <a href="{{ category.get_absolute_url }}">{{ category.name }}
+          <span>({{ category.posts_category.count }})</span></a>
+      </li>
+      {% endfor %}
+
+    </ul>
+  </div>
+
+  <div class="sidebar-box ftco-animate">
+    <h3 class="heading">Recent Blog</h3>
+
+    {% for post in recent_posts %}
+    <div class="block-21 mb-4 d-flex">
+      {% load static %}
+      <a class="blog-img mr-4" style="background-image:{% if post.iamge %} url({{post.image}})
+    {% else %}url({% static 'images/image_1.jpg' %});{% endif %}">
+      </a>
+      <div class="text">
+        <h3 class="heading-1">
+          <a href="{{ post.get_absolute_url }}">
+            {{ post.title }}
+          </a>
+        </h3>
+        <div class="meta">
+          <div><a href="#"><span class="icon-calendar"></span> {{ post.publish }}</a></div>
+          <div><a href="#"><span class="icon-person"></span>{{ post.author }}</a></div>
+          <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-md-12 d-flex ftco-animate">
+      <div class="blog-entry align-self-stretch d-md-flex">
+        <h6>No recent article</h6>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="sidebar-box ftco-animate">
+    <h3 class="heading">Similar Post</h3>
+    {% for post in similar_posts %}
+    <div class="block-21 mb-4 d-flex">
+      {% load static %}
+      <a class="blog-img mr-4" style="background-image:{% if post.image %} url({{post.image}})
+    {% else %}url({% static 'images/image_1.jpg' %});{% endif %}">
+      </a>
+      <div class="text">
+        <h3 class="heading-1">
+          <a href="{{ post.get_absolute_url }}">
+            {{ post.title }}
+          </a>
+        </h3>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-md-12 d-flex ftco-animate">
+      <div class="blog-entry align-self-stretch d-md-flex">
+        <h6>No similar post</h6>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+  <div class="sidebar-box ftco-animate">
+    <h3 class="heading">Top links</h3>
+    {% for link in links %}
+    <div class="block-21 mb-4 d-flex">
+      {% load static %}
+      <a class="blog-img mr-4" style="background-image:{% if link.image %} url({{link.image}})
+    {% else %}url({% static 'images/image_1.jpg' %});{% endif %}">
+      </a>
+      <div class="text">
+        <h3 class="heading-1">
+          <a href="{{ link.link }}">
+            {{ link.name }}
+          </a>
+        </h3>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-md-12 d-flex ftco-animate">
+      <div class="blog-entry align-self-stretch d-md-flex">
+        <h6>No link</h6>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+</div>

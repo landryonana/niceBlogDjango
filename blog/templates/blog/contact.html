@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block breadcrum %}
+{% load static %}
+<div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_1.jpg' %});">
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <div class="col-md-9 ftco-animate text-center">
+        <h1 class="mb-0 bread">Contact us</h1>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="ftco-section contact-section bg-light">
+  <div class="container">
+    <div class="row d-flex mb-5 contact-info">
+      <div class="w-100"></div>
+      <div class="col-md-4 d-flex">
+        <div class="info bg-white p-4">
+          <p><span>Address:</span> Cameroun-centre-yaoundé-nkolbisson</p>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="info bg-white p-4">
+          <p><span>Phone:</span> <a href="tel://237699806665">+ 237 699 806 665</a></p>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="info bg-white p-4">
+          <p><span>Email:</span> <a href="mailto:lndronana@gmail.com">lndronana@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="row block-9">
+      <div class="col-md-12 order-md-last d-flex">
+
+        {% if sent %}
+        <h1>Your Email has been shared successfully!!</h1>
+        {% else %}
+        <form action="{% url 'blog:post_contact' %}" method="POST" class="bg-white p-5 contact-form">
+          {% for field in form_contact %}
+          <div class="form-group">
+            {{ field.errors }}
+            {{ field }}
+          </div>
+          {% endfor %}
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+          </div>
+        </form>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
